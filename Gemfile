@@ -5,8 +5,11 @@ ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
-# Use sqlite3 as the database for Active Record
+
+# Active Record
 gem 'sqlite3'
+gem 'annotate'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -36,10 +39,6 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-# Factories
-gem 'factory_bot_rails', require: false
-gem 'faker'
-
 # Services
 gem 'interactor-rails'
 
@@ -54,6 +53,9 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'capybara'
   gem 'database_cleaner'
+
+  # Factories
+  gem 'factory_bot_rails'
 
 
   # Coding-style
@@ -72,6 +74,10 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :test do
+  gem 'shoulda-matchers'
 end
 
 
