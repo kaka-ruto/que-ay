@@ -5,5 +5,6 @@ RSpec.feature 'Answering questions', :type => :feature do
     visit '/'
 
     expect(page).to have_text('Proposition')
+    expect(page).to have_selector(:link_or_button, 'Take Questions')
   end
 end
