@@ -1,5 +1,5 @@
-<div class="ui grid container">
-  <div class="question">
+<div class="questions">
+  <div class="ui raised very padded text container segment">
     <h2 class="ui header">Knowledge and experience in investing</h2>
     <p>Note: Unlike checking and savings accounts with banks, crowdfunding is not covered by a deposit guarantee scheme, or any other guarantee scheme.</p>
 
@@ -8,5 +8,12 @@
     <br>
 
     <%= @question.question %>
+
+    <br>
+
+    <div class="navigation-buttons ui horizontal divider">
+      <%= button_to 'Previous', question_path(1), method: :get, class: 'ui right labeled icon button' %>
+      <%= button_to 'Next', question_path(2), method: :get, class: 'ui right labeled icon primary button' %>
+    </div>
   </div>
 </div>
