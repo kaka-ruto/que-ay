@@ -12,8 +12,8 @@
     <br>
 
     <div class="navigation-buttons ui horizontal divider">
-      <%= button_to 'Previous', question_path(1), method: :get, class: 'ui right labeled icon button' if @previous %>
-      <%= button_to 'Next', question_path(2), method: :get, class: 'ui right labeled icon primary button' if @next %>
+      <%= button_to 'Previous', @previous, method: :get, class: 'ui right labeled icon button' if @previous %>
+      <%= button_to 'Next', @next, method: :get, class: 'ui right labeled icon primary button' if @next %>
     </div>
   </div>
 </div>
