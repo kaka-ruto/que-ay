@@ -11,9 +11,7 @@
       
       <p>To this end we created a test, of which the primary function is to educate.</p>
       <br/>
-      <button class="ui primary button">
-        Take Questions
-      </button>
+      <%= button_to 'Take Questions', question_path(1), method: :get, class: 'ui primary button' %>
     </div>
   </div>
 </div>
