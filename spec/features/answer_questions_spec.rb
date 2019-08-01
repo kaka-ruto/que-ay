@@ -4,6 +4,8 @@ RSpec.feature 'Answering questions', :type => :feature do
   before do
     create(:question, question: 'Are you an investor?')
     create(:question, question: 'How long have you invested?')
+    create(:answer, question_id: 1, answer: 'No', points: '0', is_correct: false)
+    create(:answer, question_id: 2, answer: '10 years', points: '3', is_correct: true)
   end
 
   scenario 'User visits the homepage' do
@@ -19,6 +21,8 @@ RSpec.feature 'Answering questions', :type => :feature do
     click_button 'Take Questions'
 
     expect(page).to have_text('Are you an investor?')
+    expect(page).to have_selector('div.ui.radio.checkbox', text: 'No')
+    expect(page).not_to have_selector('div.ui.radio.checkbox', text: '10 years')
     expect(page).to have_selector(:link_or_button, 'Next')
     expect(page).not_to have_selector(:link_or_button, 'Previous')
   end
@@ -30,6 +34,8 @@ RSpec.feature 'Answering questions', :type => :feature do
     click_button 'Next'
 
     expect(page).to have_text 'How long have you invested?'
+    expect(page).to have_selector('div.ui.radio.checkbox', text: '10 years')
+    expect(page).not_to have_selector('div.ui.radio.checkbox', text: 'No')
     expect(page).to have_selector(:link_or_button, 'Previous')
     expect(page).not_to have_selector(:link_or_button, 'Next')
   end

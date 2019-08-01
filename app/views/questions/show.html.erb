@@ -7,9 +7,21 @@
     <strong>Questions:</strong>
     <br>
 
-    <%= @question.question %>
+    <%= form_for :result do |f| %>
+      <div class="ui form">
+        <div class="grouped fields">
+          <label><%= @question.question %></label>
 
-    <br>
+          <% @question.answers.each do |ans| %>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <%= f.radio_button :answer_id, ans.id %>
+                <%= f.label :answer, ans.answer %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+    <% end %>
 
     <div class="navigation-buttons ui horizontal divider">
       <%= button_to 'Previous', @previous, method: :get, class: 'ui right labeled icon button' if @previous %>

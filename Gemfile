@@ -40,10 +40,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # UI
- gem 'semantic-ui-sass'
-
-# Services
-gem 'interactor-rails'
+gem 'semantic-ui-sass'
+gem 'jquery-rails'
 
 group :development, :test do
   # Debugging
