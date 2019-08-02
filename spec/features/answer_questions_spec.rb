@@ -48,4 +48,14 @@ RSpec.feature 'Answering questions', :type => :feature do
 
     expect(page).to have_selector(:link_or_button, 'Submit')
   end
+
+  scenario 'User clicks Submit to submit answers' do
+    visit '/'
+
+    click_button 'Take Questions'
+    click_button 'Next'
+    click_button 'Submit'
+
+    expect(page).to have_text('Results')
+  end
 end
