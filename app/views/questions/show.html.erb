@@ -20,12 +20,22 @@
               </div>
             </div>
           <% end %>
+
+          <%= f.submit :Submit, class: 'ui primary button' if !@next %>
         </div>
+      </div>
     <% end %>
 
-    <div class="navigation-buttons ui horizontal divider">
-      <%= button_to 'Previous', @previous, method: :get, class: 'ui right labeled icon button' if @previous %>
-      <%= button_to 'Next', @next, method: :get, class: 'ui right labeled icon primary button' if @next %>
-    </div>
+    <% if @previous %>
+      <%= button_to @previous, method: :get, class: 'ui left labeled icon button' do %>
+        <i class="left chevron icon"></i> Back
+      <% end %>
+    <% end %>
+
+    <% if @next %>
+      <%= button_to @next, method: :get, class: 'ui right labeled icon button' do %>
+        <i class="right chevron icon"></i> Next
+      <% end %>
+    <% end %>
   </div>
 </div>

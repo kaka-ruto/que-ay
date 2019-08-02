@@ -39,4 +39,13 @@ RSpec.feature 'Answering questions', :type => :feature do
     expect(page).to have_selector(:link_or_button, 'Previous')
     expect(page).not_to have_selector(:link_or_button, 'Next')
   end
+
+  scenario 'User gets to the last question' do
+    visit '/'
+
+    click_button 'Take Questions'
+    click_button 'Next'
+
+    expect(page).to have_selector(:link_or_button, 'Submit')
+  end
 end
