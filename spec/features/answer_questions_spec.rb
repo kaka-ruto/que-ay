@@ -49,13 +49,23 @@ RSpec.feature 'Answering questions', :type => :feature do
     expect(page).to have_selector(:link_or_button, 'Submit')
   end
 
-  scenario 'User clicks Submit to submit answers' do
+  scenario 'User submits the first answer' do
     visit '/'
 
     click_button 'Take Questions'
-    choose 'No'
-    click_button 'Next'
-    find('div.ui.radio.checkbox', text: '10 years').click
+    choose 'result_answer_id_1'
+    click_button 'Submit'
+
+    expect(page).to have_text 'How long have you invested?'
+  end
+
+  scenario 'User submits last answer' do
+    visit '/'
+
+    click_button 'Take Questions'
+    choose 'result_answer_id_1'
+    click_button 'Submit'
+    choose 'result_answer_id_2'
     click_button 'Submit'
 
     expect(page).to have_text('Results')

@@ -11,9 +11,8 @@
               </div>
             </div>
           <% end %>
-          <% binding.pry %>
-          <%= hidden_field_tag(:previous_question, @previous) %>
-          <%= hidden_field_tag(:next_question, @next) %>
+
+          <%= f.hidden_field :next_question_id, value:  @next.id if @next %>
 
           <%= f.submit :Submit, class: 'mini ui primary button' %>
         </div>
