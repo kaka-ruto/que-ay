@@ -53,7 +53,9 @@ RSpec.feature 'Answering questions', :type => :feature do
     visit '/'
 
     click_button 'Take Questions'
+    choose 'No'
     click_button 'Next'
+    find('div.ui.radio.checkbox', text: '10 years').click
     click_button 'Submit'
 
     expect(page).to have_text('Results')

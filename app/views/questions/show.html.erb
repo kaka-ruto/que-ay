@@ -7,25 +7,9 @@
     <strong>Questions:</strong>
     <br>
 
-    <%= form_for :result do |f| %>
-      <div class="ui form">
-        <div class="grouped fields">
-          <label><%= @question.question %></label>
+    <%= render partial: 'results/form', locals: { question: @question, next: @next, previous: @previous } %>
 
-          <% @question.answers.each do |ans| %>
-            <div class="field">
-              <div class="ui radio checkbox">
-                <%= f.radio_button :answer_id, ans.id %>
-                <%= f.label :answer, ans.answer %>
-              </div>
-            </div>
-          <% end %>
-
-          <%= f.submit :Submit, class: 'ui primary button' if !@next %>
-        </div>
-      </div>
-    <% end %>
-
+    <p>
     <% if @previous %>
       <%= button_to @previous, method: :get, class: 'ui left labeled icon button' do %>
         <i class="left chevron icon"></i> Back
@@ -37,5 +21,6 @@
         <i class="right chevron icon"></i> Next
       <% end %>
     <% end %>
+    </p>
   </div>
 </div>

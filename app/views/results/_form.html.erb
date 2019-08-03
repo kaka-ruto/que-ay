@@ -1,0 +1,21 @@
+    <%= form_for Result.new do |f| %>
+      <div class="ui form">
+        <div class="grouped fields">
+          <label><%= @question.question %></label>
+
+          <% @question.answers.each do |ans| %>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <%= f.radio_button :answer_id, ans.id %>
+                <%= f.label :answer, ans.answer %>
+              </div>
+            </div>
+          <% end %>
+          <% binding.pry %>
+          <%= hidden_field_tag(:previous_question, @previous) %>
+          <%= hidden_field_tag(:next_question, @next) %>
+
+          <%= f.submit :Submit, class: 'mini ui primary button' %>
+        </div>
+      </div>
+    <% end %>
