@@ -6,4 +6,8 @@ class Answer < ApplicationRecord
 
   validates :answer, presence: true
   validates :points, presence: true
+
+  def question_text
+    question.question
+  end
 end
