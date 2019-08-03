@@ -6,4 +6,8 @@ class Result < ApplicationRecord
   def question_text
     answer.question_text
   end
+
+  def answer_text
+    answer.answer
+  end
 end

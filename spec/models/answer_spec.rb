@@ -19,4 +19,13 @@ RSpec.describe Answer, type: :model do
       expect(answer.question_text).to eq 'Have you had risks before?'
     end
   end
+
+  describe '.answer_text' do
+    it 'returns the answer text' do
+      answer = create(:answer, answer: 'Not really')
+      result = create(:result, answer: answer)
+
+      expect(result.answer_text).to eq 'Not really'
+    end
+  end
 end
