@@ -15,7 +15,17 @@ RSpec.feature 'Answering questions', :type => :feature do
     expect(page).to have_selector(:link_or_button, 'Take Questions')
   end
 
-  scenario 'User clicks Take Questions button' do
+  scenario 'User enters email' do
+    visit '/'
+
+    click_button 'Take Questions'
+    fill_in 'user_email', with: 'user@email.com'
+    click_button 'Submit'
+
+    expect(page).to have_text 'Are you an investor?'
+  end
+
+  scenario 'User starts answering questions' do
     visit '/'
 
     click_button 'Take Questions'

@@ -1,1 +1,12 @@
-<%= render 'email_modal' %>
+<%= form_for User.new do |f| %>
+  <div class="ui raised very padded text container segment">
+    <div class="ui form">
+      <div class="required field">
+        <label>Email</label>
+        <%= f.email_field :email, required: true, placeholder: 'Email address' %>
+        <p></p>
+        <%= f.submit :Submit, class: 'ui primary button' %>
+      </div>
+    </div>
+  </div>
+<% end %>
