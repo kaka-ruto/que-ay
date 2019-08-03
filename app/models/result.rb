@@ -10,4 +10,8 @@ class Result < ApplicationRecord
   def answer_text
     answer.answer
   end
+
+  def answer_score
+    answer.points
+  end
 end

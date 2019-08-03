@@ -70,8 +70,8 @@ RSpec.feature 'Answering questions', :type => :feature do
 
     expect_page_to_have_questions
     expect_page_to_have_answers
-    #expect_page_to_have_scores
-    #expect_page_to_show_correct_or_wrong_answers
+    expect_page_to_have_scores
+    # expect_page_to_show_correct_or_wrong_answers
   end
 
   def expect_page_to_have_questions
@@ -80,5 +80,9 @@ RSpec.feature 'Answering questions', :type => :feature do
 
   def expect_page_to_have_answers
     expect(page).to have_text 'No'
+  end
+
+  def expect_page_to_have_scores
+    expect(page).to have_text '3'
   end
 end

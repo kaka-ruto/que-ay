@@ -28,4 +28,13 @@ RSpec.describe Answer, type: :model do
       expect(result.answer_text).to eq 'Not really'
     end
   end
+
+  describe '.answer_score' do
+    it 'returns the answer points' do
+      answer = create(:answer, answer: 'Not really', points: '0')
+      result = create(:result, answer: answer)
+
+      expect(result.answer_score).to eq '0'
+    end
+  end
 end
