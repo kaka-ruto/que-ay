@@ -15,4 +15,8 @@ class Result < ApplicationRecord
   def answer_score
     answer.points
   end
+
+  def answer_correct?
+    answer.is_correct?
+  end
 end
