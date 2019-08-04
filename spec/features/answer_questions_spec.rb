@@ -29,6 +29,8 @@ RSpec.feature 'Answering questions', :type => :feature do
     visit '/'
 
     click_button 'Take Questions'
+    fill_in 'user_email', with: 'user@email.com'
+    click_button 'Submit'
 
     expect(page).to have_text('Are you an investor?')
     expect(page).to have_selector('div.ui.radio.checkbox', text: 'No')
@@ -41,7 +43,10 @@ RSpec.feature 'Answering questions', :type => :feature do
     visit '/'
 
     click_button 'Take Questions'
-    click_button 'Next'
+    fill_in 'user_email', with: 'user@email.com'
+    click_button 'Submit'
+    choose 'result_answer_id_1'
+    click_button 'Submit'
 
     expect(page).to have_text 'How long have you invested?'
     expect(page).to have_selector('div.ui.radio.checkbox', text: '10 years')

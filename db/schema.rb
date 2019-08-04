@@ -29,10 +29,12 @@ ActiveRecord::Schema.define(version: 2019_08_03_150550) do
   end
 
   create_table "results", force: :cascade do |t|
+    t.integer "user_id"
     t.integer "answer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["answer_id"], name: "index_results_on_answer_id"
+    t.index ["user_id"], name: "index_results_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
