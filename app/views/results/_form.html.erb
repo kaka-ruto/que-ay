@@ -12,7 +12,8 @@
             </div>
           <% end %>
 
-          <%= f.hidden_field :next_question_id, value:  @next.id if @next %>
+          <%= f.hidden_field :user_id, value: current_user.id  %>
+          <%= f.hidden_field :next_question_id, value: @next.id if @next %>
 
           <%= f.submit :Submit, class: 'mini ui primary button' %>
         </div>

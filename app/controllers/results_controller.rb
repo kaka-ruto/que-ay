@@ -2,7 +2,7 @@
 
 class ResultsController < ApplicationController
   def index
-    @results = Result.all
+    @results = current_user.results
   end
 
   def new
@@ -24,7 +24,7 @@ class ResultsController < ApplicationController
   private
 
   def result_params
-    params.require(:result).permit(:answer_id)
+    params.require(:result).permit(:answer_id, :user_id)
   end
 
   def next_question_available

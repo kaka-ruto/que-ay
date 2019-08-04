@@ -7,6 +7,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      login @user
+
       redirect_to question_path(1)
     else
       render 'new'

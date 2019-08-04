@@ -10,7 +10,7 @@ RSpec.describe Result, type: :model do
     it 'returns the result question' do
       result = create(:result)
 
-      expect(result.question).to be_a Question
+      expect(result.question_text).to be_a Question
     end
   end
 end
