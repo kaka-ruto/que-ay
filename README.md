@@ -1,24 +1,52 @@
-# README
+# Que-Ay (Questions & Answers)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple app that users can answer simple investment questions and see their results
 
-Things you may want to cover:
+## Getting Started
 
-* Ruby version
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-* System dependencies
+### Installing
 
-* Configuration
+Clone the project:
 
-* Database creation
+```
+git clone https://github.com/borenho/que-ay.git
+```
 
-* Database initialization
+Change directory (cd) into `que-ay` and set up your db (will create the db and
+seed it):
 
-* How to run the test suite
+```
+bundle exec rake db:setup
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Start the Rails server
 
-* Deployment instructions
+```
+bin/rails server
+```
 
-* ...
+Open the application
+
+```
+http://localhost:3000
+```
+
+### Tests
+
+Run the tests
+
+```
+bundle exec rspec
+```
+
+View test coverage (run the following in your terminal)
+
+```
+open coverage/index.html
+```
+
+### Thanks
+
+[Richard Baptist](https://github.com/rpbaptist) from [Lendahand](https://www.lendahand.com) - Thanks for the challenge!
