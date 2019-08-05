@@ -21,7 +21,7 @@
         <% else %>
           <tr class='negative'>
             <td><%= result.question_text %></td>
-            <td><%= result.answer_text %></td>
+            <td><%= result.answer_text %> (Correct answer = "<%= result.question_correct_answer.answer %>")</td>
             <td><%= result.answer_score %></td>
             <td><i class="icon close"></td>
           </tr>

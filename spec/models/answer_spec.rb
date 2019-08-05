@@ -14,27 +14,17 @@ RSpec.describe Answer, type: :model do
   describe '.question_text' do
     it 'returns the question text' do
       question = create(:question, question: 'Have you had risks before?')
-      answer = create(:answer, question: question)
 
-      expect(answer.question_text).to eq 'Have you had risks before?'
+      expect(question.question_text).to eq 'Have you had risks before?'
     end
   end
 
-  describe '.answer_text' do
-    it 'returns the answer text' do
-      answer = create(:answer, answer: 'Not really')
-      result = create(:result, answer: answer)
-
-      expect(result.answer_text).to eq 'Not really'
-    end
-  end
-
-  describe '.answer_score' do
-    it 'returns the answer points' do
-      answer = create(:answer, answer: 'Not really', points: '0')
-      result = create(:result, answer: answer)
-
-      expect(result.answer_score).to eq '0'
+  describe '.correct_answer' do
+    it 'returns the correct answer' do
+      question = create(:question)
+      right_answer = create(:answer, question: question, answer: 'Yes', points: '3', is_correct: true)
+      chosen_answer = create(:answer, question: question, answer: 'No', points: '0', is_correct: false)
+      expect(chosen_answer.correct_answer).to eq right_answer
     end
   end
 end

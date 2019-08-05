@@ -10,4 +10,10 @@ class Answer < ApplicationRecord
   def question_text
     question.question
   end
+
+  def correct_answer
+    question.answers.each do |ans|
+      return ans if ans.is_correct
+    end
+  end
 end

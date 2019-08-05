@@ -19,4 +19,8 @@ class Result < ApplicationRecord
   def answer_correct?
     answer.is_correct?
   end
+  
+  def question_correct_answer
+    answer.correct_answer
+  end
 end
