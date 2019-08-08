@@ -14,8 +14,9 @@ RSpec.describe Answer, type: :model do
   describe '.question_text' do
     it 'returns the question text' do
       question = create(:question, question: 'Have you had risks before?')
+      answer = create(:answer, question: question)
 
-      expect(question.question_text).to eq 'Have you had risks before?'
+      expect(answer.question_text).to eq question.question
     end
   end
 
@@ -24,6 +25,7 @@ RSpec.describe Answer, type: :model do
       question = create(:question)
       right_answer = create(:answer, question: question, answer: 'Yes', points: '3', is_correct: true)
       chosen_answer = create(:answer, question: question, answer: 'No', points: '0', is_correct: false)
+
       expect(chosen_answer.correct_answer).to eq right_answer
     end
   end
