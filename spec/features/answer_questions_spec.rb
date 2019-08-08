@@ -1,103 +1,105 @@
 require "rails_helper"
 
 RSpec.feature 'Answering questions', :type => :feature do
-  before do
-    create(:question, question: 'Are you an investor?')
-    create(:question, question: 'How long have you invested?')
-    create(:answer, question_id: 1, answer: 'No', points: '0', is_correct: false)
-    create(:answer, question_id: 2, answer: '10 years', points: '3', is_correct: true)
-  end
+  let!(:first_question) { create(:question, question: 'Are you an investor?') }
+  let!(:second_question) { create(:question,
+                                  question: 'How long have you invested?') }
+  let!(:wrong_answer_1) { create(:answer, question: first_question, answer: 'No',
+                                          points: '0', is_correct: false) }
+  let!(:right_answer_1) { create(:answer, question: first_question, answer: 'Yes',
+                                          points: '3', is_correct: true) }
+  let!(:right_answer_2) { create(:answer, question: second_question,
+                                         answer: '10 years',
+                                         points: '3', is_correct: true) }
+  let!(:wrong_answer_2) { create(:answer, question: second_question,
+                                         answer: '4 days', is_correct: false) }
 
   scenario 'User visits the homepage' do
     visit '/'
 
     expect(page).to have_text('Proposition')
-    expect(page).to have_selector(:link_or_button, 'Take Questions')
+    expect_to_have_button(text: 'Take Questions')
   end
 
   scenario 'User enters email' do
     visit '/'
 
-    click_button 'Take Questions'
-    fill_in 'user_email', with: 'user@email.com'
-    click_button 'Submit'
+    sign_in
 
-    expect(page).to have_text 'Are you an investor?'
+    expect_to_have_question(text: first_question.question)
   end
 
-  scenario 'User starts answering questions' do
+  scenario 'User gets to the first question' do
     visit '/'
 
-    click_button 'Take Questions'
-    fill_in 'user_email', with: 'user@email.com'
-    click_button 'Submit'
+    sign_in
 
-    expect(page).to have_text('Are you an investor?')
-    expect(page).to have_selector('div.ui.radio.checkbox', text: 'No')
-    expect(page).not_to have_selector('div.ui.radio.checkbox', text: '10 years')
-    expect(page).to have_selector(:link_or_button, 'Next')
-    expect(page).not_to have_selector(:link_or_button, 'Previous')
-  end
-
-  scenario 'User answers first question' do
-    visit '/'
-
-    click_button 'Take Questions'
-    fill_in 'user_email', with: 'user@email.com'
-    click_button 'Submit'
-    choose 'result_answer_id_1'
-    click_button 'Submit'
-
-    expect(page).to have_text 'How long have you invested?'
-    expect(page).to have_selector('div.ui.radio.checkbox', text: '10 years')
-    expect(page).not_to have_selector('div.ui.radio.checkbox', text: 'No')
-    expect(page).to have_selector(:link_or_button, 'Previous')
-    expect(page).not_to have_selector(:link_or_button, 'Next')
-  end
-
-  scenario 'User gets to the last question' do
-    visit '/'
-
-    click_button 'Take Questions'
-    click_button 'Next'
-
-    expect(page).to have_selector(:link_or_button, 'Submit')
+    expect_to_have_question(text: first_question.question)
+    expect_to_have_answer(selector: 'div.ui.radio.checkbox',
+                          text: wrong_answer_1.answer)
+    expect_to_have_answer(selector: 'div.ui.radio.checkbox',
+                          text: right_answer_1.answer)
+    expect_to_have_button(text: 'Submit')
   end
 
   scenario 'User submits the first answer' do
     visit '/'
 
-    click_button 'Take Questions'
-    choose 'result_answer_id_1'
-    click_button 'Submit'
+    sign_in
+    answer_question 1
 
-    expect(page).to have_text 'How long have you invested?'
+    expect_to_have_question(text: second_question.question)
+    expect_to_have_answer(selector: 'div.ui.radio.checkbox',
+                          text: right_answer_2.answer)
+    expect_to_have_answer(selector: 'div.ui.radio.checkbox',
+                          text: wrong_answer_2.answer)
+    expect_to_have_button(text: 'Back')
+    expect_to_have_button(text: 'Submit')
   end
 
-  scenario 'User submits last answer' do
+  scenario 'User submits the last question' do
     visit '/'
 
+    sign_in
+    answer_question 1
+    answer_question 3
+
+    expect_to_have_question(text: first_question.question)
+    expect_to_have_question(text: second_question.question)
+    expect_to_have_scores
+    expect_to_have_answer_statuses
+  end
+
+  def expect_to_have_question(text:)
+    expect(page).to have_text text
+  end
+
+  def expect_to_have_answer(selector:, text:)
+    expect(page).to have_selector(selector, text: text)
+  end
+
+  def expect_to_have_button(text:)
+    expect(page).to have_selector(:link_or_button, text)
+  end
+
+  def expect_to_have_scores
+    expect(page).to have_text wrong_answer_1.points
+    expect(page).to have_text right_answer_2.points
+  end
+
+  def expect_to_have_answer_statuses
+    expect(page).to have_css 'i.icon.checkmark'
+    expect(page).to have_css 'i.icon.close'
+  end
+
+  def sign_in
     click_button 'Take Questions'
-    choose 'result_answer_id_1'
+    fill_in 'user_email', with: 'user@email.com'
     click_button 'Submit'
-    choose 'result_answer_id_2'
+  end
+
+  def answer_question(id)
+    choose "result_answer_id_#{id}"
     click_button 'Submit'
-
-    expect_page_to_have_questions
-    expect_page_to_have_answers
-    expect_page_to_have_scores
-    # expect_page_to_show_correct_or_wrong_answers
-  end
-
-  def expect_page_to_have_questions
-    expect(page).to have_text 'Are you an investor?'
-  end
-
-  def expect_page_to_have_answers
-    expect(page).to have_text 'No'
-  end
-
-  def expect_page_to_have_scores
-    expect(page).to have_text '3'
   end
 end
