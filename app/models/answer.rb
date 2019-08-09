@@ -4,11 +4,11 @@ class Answer < ApplicationRecord
   belongs_to :question
   has_one :result
 
-  validates :answer, presence: true
+  validates :body, presence: true
   validates :points, presence: true
 
-  def question_text
-    question.question
+  def question_body
+    question.body
   end
 
   def correct_answer

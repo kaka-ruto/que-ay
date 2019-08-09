@@ -7,12 +7,5 @@ class Result < ApplicationRecord
   delegate :points, to: :answer, prefix: true
   delegate :is_correct, to: :answer, prefix: true
   delegate :correct_answer, to: :answer
-
-  def question_text
-    answer.question_text
-  end
-
-  def answer_text
-    answer.answer
-  end
+  delegate :body, to: :answer, prefix: true
 end

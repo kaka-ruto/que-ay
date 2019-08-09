@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2019_08_03_150550) do
 
   create_table "answers", force: :cascade do |t|
     t.integer "question_id"
-    t.string "answer"
+    t.string "body"
     t.string "points", default: "0"
     t.boolean "is_correct", default: false
     t.datetime "created_at", null: false
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_08_03_150550) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.string "question"
+    t.string "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
