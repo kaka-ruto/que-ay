@@ -1,18 +1,18 @@
 require "rails_helper"
 
 RSpec.feature 'Answering questions', :type => :feature do
-  let!(:first_question) { create(:question, question: 'Are you an investor?') }
+  let!(:first_question) { create(:question, body: 'Are you an investor?') }
   let!(:second_question) { create(:question,
-                                  question: 'How long have you invested?') }
-  let!(:wrong_answer_1) { create(:answer, question: first_question, answer: 'No',
+                                  body: 'How long have you invested?') }
+  let!(:wrong_answer_1) { create(:answer, question: first_question, body: 'No',
                                           points: '0', is_correct: false) }
-  let!(:right_answer_1) { create(:answer, question: first_question, answer: 'Yes',
+  let!(:right_answer_1) { create(:answer, question: first_question, body: 'Yes',
                                           points: '3', is_correct: true) }
   let!(:right_answer_2) { create(:answer, question: second_question,
-                                         answer: '10 years',
-                                         points: '3', is_correct: true) }
+                                          body: '10 years',
+                                          points: '3', is_correct: true) }
   let!(:wrong_answer_2) { create(:answer, question: second_question,
-                                         answer: '4 days', is_correct: false) }
+                                          body: '4 days', is_correct: false) }
 
   scenario 'User visits the homepage' do
     visit '/'
@@ -26,7 +26,7 @@ RSpec.feature 'Answering questions', :type => :feature do
 
     sign_in
 
-    expect_to_have_question(text: first_question.question)
+    expect_to_have_question(text: first_question.body)
   end
 
   scenario 'User gets to the first question' do
@@ -34,11 +34,11 @@ RSpec.feature 'Answering questions', :type => :feature do
 
     sign_in
 
-    expect_to_have_question(text: first_question.question)
+    expect_to_have_question(text: first_question.body)
     expect_to_have_answer(selector: 'div.ui.radio.checkbox',
-                          text: wrong_answer_1.answer)
+                          text: wrong_answer_1.body)
     expect_to_have_answer(selector: 'div.ui.radio.checkbox',
-                          text: right_answer_1.answer)
+                          text: right_answer_1.body)
     expect_to_have_button(text: 'Submit')
   end
 
@@ -48,11 +48,11 @@ RSpec.feature 'Answering questions', :type => :feature do
     sign_in
     answer_question 1
 
-    expect_to_have_question(text: second_question.question)
+    expect_to_have_question(text: second_question.body)
     expect_to_have_answer(selector: 'div.ui.radio.checkbox',
-                          text: right_answer_2.answer)
+                          text: right_answer_2.body)
     expect_to_have_answer(selector: 'div.ui.radio.checkbox',
-                          text: wrong_answer_2.answer)
+                          text: wrong_answer_2.body)
     expect_to_have_button(text: 'Back')
     expect_to_have_button(text: 'Submit')
   end
@@ -64,8 +64,8 @@ RSpec.feature 'Answering questions', :type => :feature do
     answer_question 1
     answer_question 3
 
-    expect_to_have_question(text: first_question.question)
-    expect_to_have_question(text: second_question.question)
+    expect_to_have_question(text: first_question.body)
+    expect_to_have_question(text: second_question.body)
     expect_to_have_scores
     expect_to_have_answer_statuses
   end

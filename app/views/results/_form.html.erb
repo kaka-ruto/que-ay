@@ -1,13 +1,13 @@
     <%= form_for Result.new do |f| %>
       <div class="ui form">
         <div class="grouped fields">
-          <label><%= @question.question %></label>
+          <label><%= @question.body %></label>
 
-          <% @question.answers.each do |ans| %>
+          <% @question.answers.each do |answer| %>
             <div class="field">
               <div class="ui radio checkbox">
-                <%= f.radio_button :answer_id, ans.id %>
-                <%= f.label :answer, ans.answer %>
+                <%= f.radio_button :answer_id, answer.id %>
+                <%= f.label :answer, answer.body %>
               </div>
             </div>
           <% end %>

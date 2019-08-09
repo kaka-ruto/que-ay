@@ -11,18 +11,18 @@
     </tr>
     <tbody>
       <% @results.each do |result| %>
-        <% if result.answer_correct? %>
+        <% if result.answer_is_correct %>
           <tr class='positive'>
-            <td><%= result.question_text %></td>
-            <td><%= result.answer_text %></td>
-            <td><%= result.answer_score %></td>
+            <td><%= result.answer.question_body %></td>
+            <td><%= result.answer_body %></td>
+            <td><%= result.answer_points %></td>
             <td><i class="icon checkmark"></td>
           </tr>
         <% else %>
           <tr class='negative'>
-            <td><%= result.question_text %></td>
-            <td><%= result.answer_text %> (Correct answer = "<%= result.question_correct_answer.answer %>")</td>
-            <td><%= result.answer_score %></td>
+            <td><%= result.answer.question_body %></td>
+            <td><%= result.answer_body %> (Correct answer = "<%= result.correct_answer.body %>")</td>
+            <td><%= result.answer_points %></td>
             <td><i class="icon close"></td>
           </tr>
         <% end %>

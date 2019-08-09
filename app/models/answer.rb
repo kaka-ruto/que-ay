@@ -12,8 +12,8 @@ class Answer < ApplicationRecord
   end
 
   def correct_answer
-    question.answers.each do |ans|
-      return ans if ans.is_correct
+    question.answers.each do |answer|
+      return answer if answer.is_correct
     end
   end
 end
