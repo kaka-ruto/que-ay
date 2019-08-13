@@ -78,8 +78,8 @@ RSpec.feature 'Answering questions', :type => :feature do
     expect(page).to have_selector(selector, text: text)
   end
 
-  def expect_to_have_button(text:)
-    expect(page).to have_selector(:link_or_button, text)
+  def expect_to_have_button(text:, disabled: false)
+    expect(page).to have_button(text, disabled: disabled)
   end
 
   def expect_to_have_scores

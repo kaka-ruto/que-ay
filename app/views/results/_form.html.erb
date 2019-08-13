@@ -1,21 +1,50 @@
-    <%= form_for Result.new do |f| %>
-      <div class="ui form">
-        <div class="grouped fields">
-          <label><%= @question.body %></label>
+<%= form_for Result.new do |f| %>
+  <div class="ui form">
+    <div class="grouped fields">
+      <label><%= @question.body %></label>
 
-          <% @question.answers.each do |answer| %>
-            <div class="field">
-              <div class="ui radio checkbox">
-                <%= f.radio_button :answer_id, answer.id %>
-                <%= f.label :answer, answer.body %>
-              </div>
-            </div>
-          <% end %>
-
-          <%= f.hidden_field :user_id, value: current_user.id  %>
-          <%= f.hidden_field :next_question_id, value: @next.id if @next %>
-
-          <%= f.submit :Submit, class: 'ui primary button' %>
+      <% @question.answers.each do |answer| %>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <%= f.radio_button :answer_id, answer.id %>
+            <%= f.label :answer, answer.body %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+
+      <%= f.hidden_field :user_id, value: current_user.id  %>
+      <%= f.hidden_field :next_question_id, value: @next.id if @next %>
+
+      <%= f.submit :Submit, class: 'ui primary button' %>
+    </div>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  // Cache reference to all radio buttons
+  var $radioButtons = $("input:radio");
+  // Based on the radio value, change the submit button attr from or to disabled
+  $radioButtons.change(function(){
+    var anyRadioButtonHasValue = false;
+
+    // Iterate through all radio buttons
+    $radioButtons.each(function(){
+      if(this.checked) {
+        // Indicate we found a radio with a value
+        anyRadioButtonHasValue = true;
+
+        // Break out of the loop
+        return false;
+      }
+    });
+
+    if(anyRadioButtonHasValue) {
+      // enable submit button
+      $("input[type='submit']").removeAttr("disabled");
+    }
+    else {
+      // Kind of redundant unless you somehow can clear the radio button value
+      $("input[type='submit']").attr("disabled", "");
+    }
+  });
+<% end %>
