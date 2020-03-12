@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  has_many :results
+  # New comment
+  # Another comment
+  has_many :result
 end
